@@ -1,0 +1,4 @@
+# .gitignore
+#secreats
+.env
+node_modules
