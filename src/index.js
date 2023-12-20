@@ -1,31 +1,13 @@
 import dotenv from "dotenv";
-
+import app from './app.js';
 import dbcon from "./db/Db.js"
 
-
 dotenv.config({ path: '.env' })
-dbcon();
 
-/*
-import express from "express";
-const app = express();
-
-(async () => {
-    try {
-        await mongoose.connect(`${process.env.MONGODB_URI}/${DB_NAME}`)
-
-        app.on("error", (error) => {
-            console.log("Express app didn't reponse to database", error);
-            throw err
+dbcon()
+    .then(() => {
+        app.listen(process.env.PORT || 8000, () => {
+            console.log(`app listing pn ${process.env.PORT}`);
         })
+    })
 
-        app.listen(process.env.PORT, () => {
-            console.log(`App is listing on ${process.env.PORT}`);
-        })
-
-    } catch (error) {
-        console.log("DB ERROR", (error))
-        throw err
-    }
-})()
-*/

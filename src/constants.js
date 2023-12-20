@@ -1,1 +1,1 @@
-export const DB_NAME = "CHAIORCODE";
+export const DB_NAME = "VIDAPP";
