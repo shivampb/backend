@@ -36,13 +36,13 @@ const userSchema = new Schema({
     },
     watchHistory: [
         {
-            type: Schema.Types.OjectId,
+            type: Schema.Types.ObjectId,
             ref: "Video"
         }
     ],
     password: {
         type: String,
-        required: [truew, "paassword is required"],
+        required: [true, "paassword is required"],
     },
     refreshToken: {
         type: String,
@@ -54,7 +54,7 @@ const userSchema = new Schema({
     })
 
 userSchema.pre("save", async function (next) {
-    if (!this.isMofified("password")) return next();
+    if (!this.isModified("password")) return next();
 
     this.password = await bcrypt.hash(this.password, 10)
     next()
@@ -83,7 +83,8 @@ userSchema.methods.generateRefreshToken = async function () {
     },
         process.env.REFRESH_TOKEN_SECRET,
         {
-            expiresIn: process.env.REFESH_TOKEN_EXPIRY
+            expiresIn: process.env.REFRESH_TOKEN_EXPIRY
+
         })
 }
 

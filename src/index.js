@@ -2,7 +2,7 @@ import dotenv from "dotenv";
 import app from './app.js';
 import dbcon from "./db/Db.js"
 
-dotenv.config({ path: '.env' })
+dotenv.config({ path: './.env' })
 
 dbcon()
     .then(() => {

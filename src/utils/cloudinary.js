@@ -1,5 +1,5 @@
 import { v2 as cloudinary } from "cloudinary";
-import fs from "fs"
+import fs from "fs/promises"; // Use fs/promises for promise-based file operations
 
 
 
@@ -11,21 +11,29 @@ cloudinary.config({
 
 const uploadCloudinary = async function (localFilePath) {
     try {
-        if (!localFilePath) return null
+        if (!localFilePath) {
+            return null;
+        }
 
-        //upload file on cloudinary
-        const response = await cloudinary.uploader.upload(
-            localFilePath, {
+        // Upload file to Cloudinary
+        const response = await cloudinary.uploader.upload(localFilePath, {
             resource_type: "auto"
-        })
+        });
 
-        // Files has been uploaded successfully
-        console.log("file is uploaded on cloudinary", response.url);
-        return response
+        // File has been uploaded successfully
+        console.log("File is uploaded on Cloudinary:", response.url);
+
+        return response;
     } catch (error) {
-        fs.unlinkSync(localFilePath)
-        //removes saved temporary file as the upload operation got failed
+        // Handle the upload failure
+        console.error("Error uploading file to Cloudinary:", error);
+
+        // Remove the saved temporary file as the upload operation failed
+        await fs.unlink(localFilePath);
+        console.log("Temporary file removed:", localFilePath);
+
+        throw error; // Re-throw the error for further handling, if needed
     }
-}
+};
 
 export default uploadCloudinary;
