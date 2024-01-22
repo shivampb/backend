@@ -2,14 +2,13 @@ import { v2 as cloudinary } from "cloudinary";
 import fs from "fs/promises"; // Use fs/promises for promise-based file operations
 
 
-
 cloudinary.config({
-    cloud_name: process.env.CLOUD_NAME,
-    api_key: process.env.CLOUD_KEY,
-    api_secret: process.env.CLOUD_SECRET
+    cloud_name: 'dts7dm26a',
+    api_key: '388286357187584',
+    api_secret: "g1mx_tdwB9FF3sf0U03N_NtzjUk"
 });
 
-const uploadCloudinary = async function (localFilePath) {
+const uploadOnCloudinary = async function (localFilePath) {
     try {
         if (!localFilePath) {
             return null;
@@ -21,8 +20,8 @@ const uploadCloudinary = async function (localFilePath) {
         });
 
         // File has been uploaded successfully
-        console.log("File is uploaded on Cloudinary:", response.url);
-
+        // console.log("File is uploaded on Cloudinary:", response.url);
+        fs.unlink(localFilePath);
         return response;
     } catch (error) {
         // Handle the upload failure
@@ -36,4 +35,4 @@ const uploadCloudinary = async function (localFilePath) {
     }
 };
 
-export default uploadCloudinary;
+export  {uploadOnCloudinary};
