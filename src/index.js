@@ -7,7 +7,7 @@ dotenv.config({ path: './.env' })
 dbcon()
     .then(() => {
         app.listen(process.env.PORT || 8000, () => {
-            console.log(`app listing pn ${process.env.PORT}`);
+            console.log(`app listing on ${process.env.PORT}`);
         })
     })
 
